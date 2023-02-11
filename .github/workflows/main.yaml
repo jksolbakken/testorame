@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  IMAGE_NAME: jktest
+  IMAGE_NAME: jksolbakken/jktest
 
 jobs:
   build:
@@ -16,7 +16,9 @@ jobs:
         uses: actions/checkout@v3
       - name: Generate Docker image tag with short sha
         id: dockertag
-        run: echo "docker_tag=${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:$(git rev-parse --short HEAD)" >> ${GITHUB_OUTPUT}
+        run: |
+          echo "current_tag=${{ env.IMAGE_NAME }}:$(git rev-parse --short HEAD)" >> ${GITHUB_OUTPUT}
+          echo "latest_tag=${{ env.IMAGE_NAME }}:latest" >> ${GITHUB_OUTPUT}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -35,7 +37,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           pull: true
           push: true
-          tags: ${{ steps.dockertag.outputs.docker_tag }}
+          tags: ${{ steps.dockertag.outputs.current_tag }},${{ steps.dockertag.outputs.latest_tag }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
