@@ -9,9 +9,14 @@ env:
   IMAGE_NAME: jktest
 
 jobs:
-  setup-prereqs:
+  build:
     runs-on: ubuntu-20.04
     steps:
+      - name: Checkout latest code
+        uses: actions/checkout@v3
+      - name: Generate Docker image tag with short sha
+        id: dockertag
+        run: echo "docker_tag=${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:$(git rev-parse --short HEAD)" >> ${GITHUB_OUTPUT}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -22,15 +27,6 @@ jobs:
         with:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-  build:
-    needs: setup-prereqs
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout latest code
-        uses: actions/checkout@v3
-      - name: Generate Docker image tag with short sha
-        id: dockertag
-        run: echo "docker_tag=${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:$(git rev-parse --short HEAD)" >> ${GITHUB_OUTPUT}
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
