@@ -18,10 +18,6 @@ jobs:
     steps:
       - name: Checkout latest code
         uses: actions/checkout@v3
-      - name: Generate Docker image tag with short sha
-        id: dockertag
-        run: |
-          echo "current_tag=${{ env.IMAGE_NAME }}:$(git rev-parse --short HEAD)" >> ${GITHUB_OUTPUT}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -41,7 +37,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           pull: true
           push: true
-          tags: ${{ steps.dockertag.outputs.current_tag }}
+          tags: ghcr.io/${{ github.repository }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Install cosign
