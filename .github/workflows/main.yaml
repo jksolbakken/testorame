@@ -22,7 +22,6 @@ jobs:
         id: dockertag
         run: |
           echo "current_tag=${{ env.IMAGE_NAME }}:$(git rev-parse --short HEAD)" >> ${GITHUB_OUTPUT}
-          echo "latest_tag=${{ env.IMAGE_NAME }}:latest" >> ${GITHUB_OUTPUT}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -42,7 +41,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           pull: true
           push: true
-          tags: ${{ steps.dockertag.outputs.current_tag }},${{ steps.dockertag.outputs.latest_tag }}
+          tags: ${{ steps.dockertag.outputs.current_tag }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Install cosign
