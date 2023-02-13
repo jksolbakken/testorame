@@ -11,6 +11,10 @@ env:
 jobs:
   build:
     runs-on: ubuntu-20.04
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
     steps:
       - name: Checkout latest code
         uses: actions/checkout@v3
@@ -30,6 +34,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push
+        id: build-push
         uses: docker/build-push-action@v4
         with:
           context: .
@@ -40,5 +45,9 @@ jobs:
           tags: ${{ steps.dockertag.outputs.current_tag }},${{ steps.dockertag.outputs.latest_tag }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      - name: Sign the container image
+        run: cosign sign ${{ env.IMAGE_NAME }}@${{ steps.build-push.outputs.digest }}
+        env:
+          COSIGN_EXPERIMENTAL: "true"
 
 
