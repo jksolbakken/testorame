@@ -44,7 +44,7 @@ jobs:
         with:
           cosign-release: 'v1.4.1'
       - name: Sign the container image
-        run: cosign sign ghcr.io/${{ github.repository }}@${{ steps.push-step.outputs.digest }}
+        run: cosign sign ghcr.io/${{ github.repository }}@${{ steps.build-push.outputs.digest }}
         env:
           COSIGN_EXPERIMENTAL: "true"
 
