@@ -45,6 +45,10 @@ jobs:
           tags: ${{ steps.dockertag.outputs.current_tag }},${{ steps.dockertag.outputs.latest_tag }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      - name: Install cosign
+        uses: sigstore/cosign-installer@main
+        with:
+          cosign-release: 'v1.4.1'
       - name: Sign the container image
         run: cosign sign ${{ env.IMAGE_NAME }}@${{ steps.build-push.outputs.digest }}
         env:
