@@ -41,7 +41,7 @@ jobs:
       - name: Install cosign
         uses: sigstore/cosign-installer@main
         with:
-          cosign-release: 'v1.4.1'
+          cosign-release: 'v1.13.1'
       - name: Sign the container image
         run: cosign sign ghcr.io/${{ github.repository }}@${{ steps.build-push.outputs.digest }}
         env:
