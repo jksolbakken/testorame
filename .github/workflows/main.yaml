@@ -26,7 +26,9 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
+      - name: Generate Docker image tag with short sha
+        id: dockertag
+        run: echo "img_tag=ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:$(git rev-parse --short HEAD)" >> ${GITHUB_OUTPUT}
       - name: Build and push
         id: build-push
         uses: docker/build-push-action@v4
@@ -36,7 +38,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           pull: true
           push: true
-          tags: ghcr.io/${{ github.repository }}:latest
+          tags: ${{ steps.dockertag.outputs.img_tag }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Install cosign
