@@ -28,7 +28,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Generate Docker image tag with short sha
         id: dockertag
-        run: echo "img_tag=ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:$(git rev-parse --short HEAD)" >> ${GITHUB_OUTPUT}
+        run: echo "img_tag=ghcr.io/${{ github.repository }}:$(git rev-parse --short HEAD)" >> ${GITHUB_OUTPUT}
       - name: Build and push
         id: build-push
         uses: docker/build-push-action@v4
