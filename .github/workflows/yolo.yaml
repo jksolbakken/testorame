@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-20.04
     permissions:
       contents: read
-      id-token: write
     steps:
       - name: Checkout latest code
         uses: actions/checkout@v3
