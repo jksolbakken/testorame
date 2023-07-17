@@ -1,0 +1,18 @@
+name: Play around with settings and stuff
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout latest code
+        uses: actions/checkout@v3
+      - name: Print git config
+        run: git config -l
+
+
