@@ -3,15 +3,18 @@ name: Play around with settings and stuff
 on:
   workflow_dispatch:
 
+env:
+  myvar: myvalue
+
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     permissions:
       contents: read
     steps:
       - name: Checkout latest code
         uses: actions/checkout@v3
-      - name: Print git config
-        run: git config -l
+      - name: Do stuff
+        run: echo "it is $myvar"
 
 
