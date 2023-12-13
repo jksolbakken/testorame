@@ -7,10 +7,12 @@ env:
   myvar: myvalue
 
 jobs:
-  build:
+  first_job:
     runs-on: ubuntu-22.04
     permissions:
       contents: read
+    outputs:
+      opkey: opval
     steps:
       - name: Checkout latest code
         uses: actions/checkout@v3
@@ -18,5 +20,11 @@ jobs:
         run: echo "it is oci://$myvar/other-stuff"
       - name: Do other stuff
         run: echo "but does it work like this? ${{ env.myvar }}"
-
+  
+  second_job:
+    runs-on: ubuntu-22.04
+    needs: first_job
+    steps:
+      - name: thestep
+        run: 'echo "From first_job: ${{ needs.first_job.outputs.opkey }}"'
 
