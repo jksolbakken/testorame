@@ -28,3 +28,9 @@ jobs:
       - name: thestep
         run: 'echo "From first_job: ${{ needs.first_job.outputs.opkey }}"'
 
+  third_job:
+    runs-on: ubuntu-22.04
+    needs: second_job
+    steps:
+      - name: thestep
+        run: 'echo "From first_job: ${{ needs.first_job.outputs.opkey }}"'
