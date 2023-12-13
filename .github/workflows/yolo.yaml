@@ -16,5 +16,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Do stuff
         run: echo "it is oci://$myvar/other-stuff"
+      - name: Do other stuff
+        run: echo "but does it work like this? ${{ env.myvar }}"
 
 
