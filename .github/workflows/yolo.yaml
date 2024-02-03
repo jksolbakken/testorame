@@ -18,6 +18,8 @@ jobs:
         uses: step-security/harden-runner@v2
         with:
           egress-policy: block
+          allowed-endpoints: >
+            *.blob.core.windows.net
       - name: Checkout latest code
         uses: actions/checkout@v3
       - name: Do stuff
