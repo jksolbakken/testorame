@@ -20,7 +20,7 @@ jobs:
           egress-policy: block
           allowed-endpoints: >
             *.blob.core.windows.net
-            *.github.com
+            *.github.com:443
       - name: Checkout latest code
         uses: actions/checkout@v3
       - name: Do stuff
