@@ -18,24 +18,12 @@ jobs:
     outputs:
       opkey: opval
     steps:
-      - name: Harden runner
-        uses: step-security/harden-runner@v2
-        with:
-          disable-sudo: true
-          egress-policy: block
-          allowed-endpoints: >
-            github.com:443
-            www.vg.no:443
       - name: Checkout latest code
         uses: actions/checkout@v3
       - name: Do stuff
         run: echo "it is oci://$myvar/other-stuff"
       - name: Do other stuff
         run: echo "but does it work like this? ${{ env.myvar }}"
-      - name: Egress to VG is allowed
-        run: curl -i https://www.vg.no
-      - name: Sudo should be blocked
-        run: sudo ls
   
   second_job:
     runs-on: ubuntu-22.04
