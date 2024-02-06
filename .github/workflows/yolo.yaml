@@ -59,4 +59,5 @@ jobs:
     steps:
       - name: Script injection fun
         run: |
-          echo "your input was ${{ github.event.inputs.thing }}"
+          stuff=${{ github.event.inputs.thing }}
+          echo "your input was $stuff"
