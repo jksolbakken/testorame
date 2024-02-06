@@ -2,6 +2,10 @@ name: Play around with stuff
 
 on:
   workflow_dispatch:
+    inputs:
+      thing:
+        description: Please input thing
+        type: string
 
 env:
   myvar: myvalue
@@ -49,3 +53,10 @@ jobs:
     steps:
       - name: thestep
         run: 'echo "From first_job: ${{ needs.first_job.outputs.opkey }}"'
+
+  fourth_job:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Script injection fun
+        run: |
+          echo "your input was ${{ github.event.inputs.thing }}"
