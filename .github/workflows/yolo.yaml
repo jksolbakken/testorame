@@ -50,5 +50,6 @@ jobs:
       - name: Script injection fun
         run: |
           inlinestuff="${{ github.event.inputs.thing }}"
+          secondinlinestuff="${{ github.event.inputs.thing }}"
           echo "your unfiltered input was $inlinestuff"
           echo "your filtered input was $envstuff"
