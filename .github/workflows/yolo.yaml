@@ -44,8 +44,11 @@ jobs:
 
   fourth_job:
     runs-on: ubuntu-22.04
+    env:
+        envstuff: ${{ github.event.inputs.thing }}
     steps:
       - name: Script injection fun
         run: |
-          stuff="${{ github.event.inputs.thing }}"
-          echo "your input was $stuff"
+          inlinestuff="${{ github.event.inputs.thing }}"
+          echo "your unfiltered input was $inlinestuff"
+          echo "your filtered input was $envstuff"
