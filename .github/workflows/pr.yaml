@@ -1,0 +1,21 @@
+name: Play around with stuff
+
+on:
+  pull_request:
+
+env:
+  myvar: myvalue
+
+jobs:
+  first_job:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+    outputs:
+      opkey: opval
+    steps:
+      - name: Checkout latest code
+        uses: actions/checkout@v3
+      - name: Do other stuff
+        run: echo "what is it? ${{ github.head_ref }}"
+  
