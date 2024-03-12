@@ -17,5 +17,7 @@ jobs:
       - name: Checkout latest code
         uses: actions/checkout@v3
       - name: Do other stuff
-        run: echo "what is it? ${{ github.head_ref }}"
+        run: |
+          echo "head_ref: ${{ github.head_ref }}"
+          echo "ref: ${{ github.ref }}"
   
