@@ -42,7 +42,7 @@ jobs:
       - name: thestep
         run: 'echo "From first_job: ${{ needs.first_job.outputs.opkey }}"'
       - name: thing
-        run: echo ${{ github }}
+        run: echo ${{ github.head_ref }}
 
   fourth_job:
     runs-on: ubuntu-22.04
