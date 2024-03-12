@@ -2,56 +2,35 @@ name: Play around with stuff
 
 on:
   workflow_dispatch:
-    inputs:
-      thing:
-        description: Please input thing
-        type: string
 
 env:
   myvar: myvalue
 
 jobs:
   first_job:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     permissions:
       contents: read
-    outputs:
-      opkey: opval
     steps:
       - name: Checkout latest code
         uses: actions/checkout@v3
-      - name: Do stuff
-        run: echo "it is oci://$myvar/other-stuff"
       - name: Do other stuff
-        run: echo "but does it work like this? ${{ env.myvar }}"
-  
+        run: |
+          echo "head_ref: ${{ github.head_ref }}"
+          echo "ref: ${{ github.ref }}"
+
   second_job:
-    runs-on: ubuntu-22.04
-    needs: 
-      - first_job
+    runs-on: ubuntu-latest
+    if: ${{ secrets.GITHUB_TOKEN != ""}}
+    permissions:
+      id-token: write
     steps:
-      - name: thestep
-        run: 'echo "From first_job: ${{ needs.first_job.outputs.opkey }}"'
+      - name: do second_job_thing
+        run: echo "hello from second job, token exists"
 
   third_job:
-    runs-on: ubuntu-22.04
-    needs: 
-      - first_job
-      - second_job
+    runs-on: ubuntu-latest
+    if: ${{ env.NONEXISTING != ""}}
     steps:
-      - name: thestep
-        run: 'echo "From first_job: ${{ needs.first_job.outputs.opkey }}"'
-      - name: thing
-        run: echo ${{ github.head_ref }}
-
-  fourth_job:
-    runs-on: ubuntu-22.04
-    env:
-        envstuff: ${{ github.event.inputs.thing }}
-    steps:
-      - name: Script injection fun
-        run: |
-          inlinestuff="${{ github.event.inputs.thing }}"
-          secondinlinestuff="${{ github.event.inputs.thing }}"
-          echo "your unfiltered input was $inlinestuff"
-          echo "your filtered input was $envstuff"
+      - name: do third_job_thing
+        run: echo "hello from third job, env exists"
