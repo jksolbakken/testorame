@@ -1,10 +1,7 @@
-name: Play around with stuff
+name: yolo
 
 on:
   workflow_dispatch:
-
-env:
-  myvar: myvalue
 
 jobs:
   first_job:
@@ -26,16 +23,16 @@ jobs:
       id-token: write
     steps:
       - name: do second_job_thing
-        if: ${{env.THE_TOKEN != ''}}
+        if: THE_TOKEN != ''
         run: echo "hello from second job, token exists"
-        env:
-          THE_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+    env:
+      THE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   third_job:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    if: ${{env.NONEXISTING != ''}}
+    if: ${{ env.NONEXISTING != '' }}
     steps:
       - name: do third_job_thing
         run: echo "hello from third job, env exists"
