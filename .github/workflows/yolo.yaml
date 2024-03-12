@@ -28,8 +28,8 @@ jobs:
       - name: do second_job_thing
         if: ${{ env.THE_TOKEN != '' }}
         run: echo "hello from second job, token exists"
-    env:
-      THE_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+        env:
+          THE_TOKEN: ${{ secrets.GITHUB_TOKEN}}
 
   third_job:
     runs-on: ubuntu-latest
