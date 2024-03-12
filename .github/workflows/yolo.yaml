@@ -22,6 +22,7 @@ jobs:
   second_job:
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       id-token: write
     steps:
       - name: do second_job_thing
@@ -32,6 +33,8 @@ jobs:
 
   third_job:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     if: ${{ env.NONEXISTING != '' }}
     steps:
       - name: do third_job_thing
