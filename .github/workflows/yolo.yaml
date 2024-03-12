@@ -34,7 +34,7 @@ jobs:
       contents: read
     steps:
       - name: do third_job_thing
-        if: ${{ env.NONEXISTING != '' }}
-        run: echo "hello from third job, env exists"
+        if: ${{ env.NONEXISTING == '' }}
+        run: echo "hello from third job, env is missing"
 
 
