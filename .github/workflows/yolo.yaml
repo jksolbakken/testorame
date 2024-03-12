@@ -21,11 +21,11 @@ jobs:
 
   second_job:
     runs-on: ubuntu-latest
-    if: ${{ secrets.GITHUB_TOKEN != ""}}
     permissions:
       id-token: write
     steps:
       - name: do second_job_thing
+        if: ${{ secrets.GITHUB_TOKEN != ""}}
         run: echo "hello from second job, token exists"
 
   third_job:
