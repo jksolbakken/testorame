@@ -1,4 +1,4 @@
-name: Play around with stuff
+name: PR stuff
 
 on:
   pull_request:
