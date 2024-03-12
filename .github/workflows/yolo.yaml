@@ -25,12 +25,12 @@ jobs:
       id-token: write
     steps:
       - name: do second_job_thing
-        if: ${{ secrets.GITHUB_TOKEN != ""}}
+        if: ${{ secrets.GITHUB_TOKEN != ''}}
         run: echo "hello from second job, token exists"
 
   third_job:
     runs-on: ubuntu-latest
-    if: ${{ env.NONEXISTING != ""}}
+    if: ${{ env.NONEXISTING != ''}}
     steps:
       - name: do third_job_thing
         run: echo "hello from third job, env exists"
