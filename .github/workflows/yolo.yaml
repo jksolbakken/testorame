@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    if: ${{ env.NONEXISTING != '' }}
+    if: NONEXISTING != ''
     steps:
       - name: do third_job_thing
         run: echo "hello from third job, env exists"
