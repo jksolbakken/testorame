@@ -28,6 +28,7 @@ jobs:
         id: second_job_thing
         run: |
           echo "CREDS_PRESENT=${{ secrets.GITHUB_TOKEN != ''}}" >> $GITHUB_OUTPUT
+          cat $GITHUB_OUTPUT
           echo "done"
 
   third_job:
