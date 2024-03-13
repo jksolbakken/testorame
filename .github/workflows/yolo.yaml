@@ -22,13 +22,14 @@ jobs:
       contents: read
       id-token: write
     outputs:
-      creds_present: ${{ steps.set-outputs.outputs.CREDS_PRESENT }}
+      creds_present: ${{ steps.second_job_thing.outputs.CREDS_PRESENT }}
     steps:
       - name: do second_job_thing
+        id: second_job_thing
         if: ${{ env.THETOKEN != '' }}
         run: |
           echo "hello from second job, token exists"
-          echo "CREDS_PRESENT=${{ secrets.DOCKERHUB_TOKEN != ''}}" >> $GITHUB_OUTPUT
+          echo "CREDS_PRESENT=${{ secrets.GITHUB_TOKEN != ''}}" >> $GITHUB_OUTPUT
     env:
       THETOKEN: ${{ secrets.GITHUB_TOKEN }}
 
