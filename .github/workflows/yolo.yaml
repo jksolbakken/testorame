@@ -34,7 +34,6 @@ jobs:
   third_job:
     runs-on: ubuntu-latest
     needs: [second_job]
-    if: ${{ needs.second_job.outputs.creds_present == true}}
     permissions:
       contents: read
     steps:
