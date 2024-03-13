@@ -42,5 +42,6 @@ jobs:
         if: ${{ env.NONEXISTING == '' }}
         run: |
           echo "hello from third job, env is missing"
+          echo ${{ needs.second_job.outputs }}
           echo "output from second job: ${{ needs.second_job.outputs.creds_present }}"
 
