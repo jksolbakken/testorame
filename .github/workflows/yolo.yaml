@@ -41,6 +41,5 @@ jobs:
       - name: do third_job_thing
         if: ${{ env.NONEXISTING == '' }}
         run: |
-          echo ${{ toJSON(needs.second_job.outputs) }}
           echo "output from second job: ${{ needs.second_job.outputs.creds_present }}"
 
