@@ -27,8 +27,8 @@ jobs:
       - name: do second_job_thing
         id: second_job_thing
         run: |
-          echo "hello from second job, token exists"
           echo "CREDS_PRESENT=${{ secrets.GITHUB_TOKEN != ''}}" >> $GITHUB_OUTPUT
+          echo "done"
 
   third_job:
     runs-on: ubuntu-latest
