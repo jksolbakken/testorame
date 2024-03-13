@@ -34,13 +34,13 @@ jobs:
   third_job:
     runs-on: ubuntu-latest
     needs: [second_job]
+    if: ${{ needs.second_job.outputs.creds_present == 'true'}}
     permissions:
       contents: read
     steps:
       - name: do third_job_thing
         if: ${{ env.NONEXISTING == '' }}
         run: |
-          echo "hello from third job, env is missing"
           echo ${{ toJSON(needs.second_job.outputs) }}
           echo "output from second job: ${{ needs.second_job.outputs.creds_present }}"
 
