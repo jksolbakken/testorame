@@ -29,9 +29,7 @@ jobs:
         if: ${{ env.THETOKEN != '' }}
         run: |
           echo "hello from second job, token exists"
-          echo "CREDS_PRESENT=${{ secrets.GITHUB_TOKEN_BOGUS != ''}}" >> $GITHUB_OUTPUT
-    env:
-      THETOKEN: ${{ secrets.GITHUB_TOKEN }}
+          echo "CREDS_PRESENT=${{ secrets.GITHUB_TOKEN != ''}}" >> $GITHUB_OUTPUT
 
   third_job:
     runs-on: ubuntu-latest
