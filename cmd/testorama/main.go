@@ -6,8 +6,6 @@ import (
 )
 
 func main() {
-	awsAccessKey := "AKIA6ODU5DHT2EQ2SXNW"
-	awsSecretKey := "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"
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Hello, %s!", r.URL.Path[1:])
 	})
