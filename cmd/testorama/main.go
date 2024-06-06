@@ -6,8 +6,6 @@ import (
 )
 
 func main() {
-	//awsAccessKey := "AKIA6ODU5DHTQ3ATG57C"
-	//awsSecretKey := "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"
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		_, err := fmt.Fprintf(w, "Hello, %s!", r.URL.Path[1:])
 		if err != nil {
