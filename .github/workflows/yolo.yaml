@@ -1,7 +1,10 @@
 name: yolo
 
 on:
-  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+
 
 jobs:
   first_job:
@@ -9,37 +12,15 @@ jobs:
     permissions:
       contents: read
     steps:
-      - name: Checkout latest code
-        uses: actions/checkout@v3
-      - name: Do other stuff
+      - name: Do JK stuff
+        if: github.event.pull_request.user.login == 'jksolbakken'
         run: |
-          echo "head_ref: ${{ github.head_ref }}"
-          echo "ref: ${{ github.ref }}"
-
-  second_job:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
-    outputs:
-      creds_present: ${{ steps.second_job_thing.outputs.CREDS_PRESENT }}
-    steps:
-      - name: do second_job_thing
-        id: second_job_thing
+          echo "J-K, ja"
+      - name: Do stuff other user
+        if: github.event.pull_request.user.login != 'jksolbakken'
         run: |
-          echo "CREDS_PRESENT=${{ secrets.GITHUB_TOKEN != ''}}" >> $GITHUB_OUTPUT
-          cat $GITHUB_OUTPUT
-          echo "done"
+          echo "Ikke J-K, men $THEUSER"
+        env:
+          THEUSER: ${github.event.pull_request.user.login}
 
-  third_job:
-    runs-on: ubuntu-latest
-    needs: [second_job]
-    if: ${{ needs.second_job.outputs.creds_present == 'true'}}
-    permissions:
-      contents: read
-    steps:
-      - name: do third_job_thing
-        if: ${{ env.NONEXISTING == '' }}
-        run: |
-          echo "output from second job: ${{ needs.second_job.outputs.creds_present }}"
-
+  
