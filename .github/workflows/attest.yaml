@@ -1,0 +1,19 @@
+name: Test attestation action
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    steps:
+      - name: Checkout latest code
+        uses: actions/checkout@v4
+      - name: Generate attestation
+        uses: actions/attest-build-provennce@v1
+        with:
+          subject-path: "README.md"
