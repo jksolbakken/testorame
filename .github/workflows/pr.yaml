@@ -15,9 +15,14 @@ jobs:
       opkey: opval
     steps:
       - name: Checkout latest code
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # ratchet:actions/checkout@v3
+        with:
+          persist-credentials: false
       - name: Do other stuff
         run: |
-          echo "head_ref: ${{ github.head_ref }}"
-          echo "ref: ${{ github.ref }}"
-  
+          echo "head_ref: ${{ head_ref }}"
+          echo "ref: ${{ ref }}"
+        env:
+          head_ref: ${{ github.head_ref }}"
+          ref: ${{ github.ref }}"
+
