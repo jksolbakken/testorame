@@ -13,7 +13,8 @@ jobs:
     steps:
       - name: Checkout latest code
         uses: actions/checkout@v4
-        persist-credentials: false
+        with:
+          persist-credentials: false
       - name: Generate attestation
         uses: actions/attest-build-provenance@v2
         with:
