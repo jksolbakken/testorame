@@ -1,5 +1,4 @@
-FROM golang:1.19.4-alpine as builder
-RUN apk add --no-cache make
+FROM chainguard/go as builder
 ENV GOOS=linux
 ENV CGO_ENABLED=0
 ENV GO111MODULE=on
